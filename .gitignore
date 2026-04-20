@@ -56,7 +56,6 @@ Thumbs.db
 # Environment / secrets
 # ========================
 .env
-*.properties
 
 # (Optional: keep config but ignore sensitive overrides)
 # config.properties
