@@ -1,0 +1,62 @@
+# ========================
+# Build & compiled files
+# ========================
+/target/
+bin/
+build/
+out/
+
+# ========================
+# Eclipse files
+# ========================
+.project
+.classpath
+.settings/
+
+# ========================
+# IntelliJ (if used later)
+# ========================
+.idea/
+*.iml
+
+# ========================
+# Logs
+# ========================
+*.log
+
+# ========================
+# TestNG & Reports
+# ========================
+test-output/
+Report/
+reports/
+surefire-reports/
+
+# ========================
+# Screenshots (automation outputs)
+# ========================
+screenshots/
+*.png
+*.jpg
+
+# ========================
+# Temporary files
+# ========================
+*.tmp
+*.swp
+*~
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Environment / secrets
+# ========================
+.env
+*.properties
+
+# (Optional: keep config but ignore sensitive overrides)
+# config.properties
