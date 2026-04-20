@@ -18,26 +18,28 @@ public class ExtentReportManager {
 	
 	
 
-
-
 	public static ExtentReports getExtentReportObject() {
 		// TODO Auto-generated method stub
-		String timeStamp = new SimpleDateFormat("dd-MM-YYYY_HH_mm-ss").format(new Date());
-		String reportPath = System.getProperty("user.dir")+ "/Report/"  +"Report_" + timeStamp + ".html";
-		reporter = new ExtentSparkReporter(reportPath);
+		if (extent == null)
+		{
+			String timeStamp = new SimpleDateFormat("dd-MM-YYYY_HH_mm-ss").format(new Date());
+			String reportPath = System.getProperty("user.dir")+ "/Report/"  +"Report_" + timeStamp + ".html";
+			reporter = new ExtentSparkReporter(reportPath);
+			
+			reporter.config().setReportName("Automation Report");
+			reporter.config().setDocumentTitle("Test Execution Report ");
+			reporter.config().setTheme(Theme.DARK);
+			
+			extent = new ExtentReports();
+			extent.attachReporter(reporter);
+			
+			
+			extent.setSystemInfo("Tester", "Mohamed Faizal A");
+			extent.setSystemInfo("Env", "QA");
+			extent.setSystemInfo("OS", "Windows");
+			extent.setSystemInfo("Application", "Chrome");
+		}
 		
-		reporter.config().setReportName("Automation Report");
-		reporter.config().setDocumentTitle("Test Execution Report ");
-		reporter.config().setTheme(Theme.DARK);
-		
-		extent = new ExtentReports();
-		extent.attachReporter(reporter);
-		
-		
-		extent.setSystemInfo("Tester", "Mohamed Faizal A");
-		extent.setSystemInfo("Env", "QA");
-		extent.setSystemInfo("OS", "Windows");
-		extent.setSystemInfo("Application", "Chrome");
 		
 		
 		return extent;
