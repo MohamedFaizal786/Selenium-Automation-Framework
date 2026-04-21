@@ -1,6 +1,7 @@
 package Utilities;
 
 import java.time.Duration;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.github.javafaker.Faker;
 
 import BaseTest.BaseClass;
 
@@ -97,6 +99,10 @@ public class ActionUtilities {
 		
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
+	
+	
+
+
 
 
 	

@@ -6,7 +6,9 @@
 		</listeners>
   <test thread-count="5" name="Selenium-test">
     <classes>
-      <class name="Testcases.LoginTest"/>
+    <!--  <class name="Testcases.LoginTest"/> -->
+      <class name="Testcases.RegisterTest"/>
+      
     </classes>
   </test> <!-- Selenium-test -->
 </suite> <!-- EcommerceAutomation -->
