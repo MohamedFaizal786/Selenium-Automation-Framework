@@ -11,9 +11,11 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentTest;
 
 import BaseTest.BaseClass;
+import BaseTest.DriverManager;
 import DataProviders.DataProviderClass;
 import PageObjects.HomePage;
 import PageObjects.LoginPage;
+import Utilities.ExtentLogger;
 import Utilities.ScreenshotsUtilities;
 
 public class LoginTest extends BaseClass {
@@ -25,37 +27,28 @@ public class LoginTest extends BaseClass {
 	{
 		
 		
-	//	ExtentTest test = BaseClass.extent.createTest(TestCaseId);
 		logger.info("Test started : " + TestCaseId );
-		HomePage homepage = new HomePage(driver);
+		HomePage homepage = new HomePage(DriverManager.getDriver() ,actUtil);
+		LoginPage loginpage = new LoginPage(DriverManager.getDriver() , actUtil);
 		Thread.sleep(5000);
 		homepage.clickLoginBtn();
 		logger.info("Clicked on Login button");
-		LoginPage loginpage = new LoginPage(driver);
-		Thread.sleep(10000);
-		loginpage.setEmail(username);
-		logger.info("Entered Email");
-		loginpage.setPassword(password);
-		loginpage.clickLogin();
-		logger.info("Clicked on Login button");
-		if (homepage.getlogoutText().equals("Log out"))
+		
+		Thread.sleep(15000);
+		loginpage.login(username, password);
+		if (homepage.isAccountLoggedIn("Log out",homepage.getlogoutText() ))
 		{	
 			logger.info("Logged in successful for " + username + " and " + password);
-		//	test.pass("Logged in successfully with " + username + " and " + password );
-	
-			//homepage.clickLogoutnBtn();
-			
+			ExtentLogger.pass("Logged in successful for " + username + " and " + password);
+		
 		
 		}
 		
 		else
 		{	
 			logger.error("login unsuccessfull with " + username + " and " + password);
+			ExtentLogger.fail("Logged in unsuccessful for " + username + " and " + password);
 			Assert.fail();
-			//System.out.println("Login unsuccessfull");
-//			String path = ScreenshotsUtilities.getScreenshot(driver, this.getClass().getName());
-//			test.fail("Login unsuccessful   with " + username + " and " + password);
-//			test.addScreenCaptureFromPath(path);
 			
 		
 		}

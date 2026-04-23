@@ -1,6 +1,7 @@
 package Utilities;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +17,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.github.javafaker.Faker;
 
 import BaseTest.BaseClass;
+import BaseTest.ConfigReader;
 
 
 public class ActionUtilities {
@@ -23,12 +25,13 @@ public class ActionUtilities {
 	private static Logger logger = LogManager.getLogger(ActionUtilities.class);
 	public   WebDriver driver;
 	public  WebDriverWait wait ;
+	public int  explicitTime = Integer.parseInt(ConfigReader.getproperty("explicitwait"));
 	
 
 	public ActionUtilities(WebDriver driver) {
 		// TODO Auto-generated constructor stub
 		this.driver = driver;
-		this.wait = new WebDriverWait(driver , Duration.ofSeconds(10));
+		this.wait = new WebDriverWait(driver , Duration.ofSeconds(explicitTime));
 		
 			}
 	
@@ -40,10 +43,13 @@ public class ActionUtilities {
 			highlightElement(element);
 			element.clear();
 			element.sendKeys(txt);
-			ExtentLogger.setInfo("Setting the text:" +txt  );
+			logger.info("Text value entered : " + txt);
+			ExtentLogger.pass("Text value entered:" +txt  );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to enter the text value  : " + txt);
+			ExtentLogger.fail("Text value entered:" +txt  );
+			 throw new RuntimeException("SetText failed for: " + locator, e);
 		}
 	}
 	
@@ -55,10 +61,13 @@ public class ActionUtilities {
 			WebElement element = waitForElementClickable(locator);
 			highlightElement(element);
 			element.click();
-			ExtentLogger.setInfo("Clicked and Element : " + locator);
+			logger.info("Clicked an  Element : " + locator);
+			ExtentLogger.pass("Clicked an  Element : " + locator);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Unable to click an  Element : " + locator);
+			ExtentLogger.fail("Unable to click an  Element : " + locator);
+			 throw new RuntimeException("Click failed for: " + locator, e);
 		}
 		
 	}
@@ -68,14 +77,18 @@ public class ActionUtilities {
 		try {
 			WebElement element = waitForElementVisible(locator);
 			highlightElement(element);
-			ExtentLogger.setInfo("Captured the text : "+  element.getText());
-			return element.getText();
+			String capturedTxt = element.getText();
+			logger.info("Text value Captured : " + capturedTxt );
+			ExtentLogger.pass(" Text value captured : "+ capturedTxt);
+			return capturedTxt;
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to capture the txt value for the locator : " + locator );
+			ExtentLogger.fail("Unable to capture the txt value for the locator : " + locator );
+			throw new RuntimeException("GetText failed for: " + locator, e);
 		}
-		return null;
+		
 	}
 	
 	
@@ -84,8 +97,61 @@ public class ActionUtilities {
         js.executeScript("arguments[0].style.border='3px solid red'", element);
     }
 	
+	public void selectElementfromList(By locator , String expectedElement)
+	{
+		try {
+			List <WebElement> elements = waitForElements(locator);
+			for(WebElement element : elements )
+			{
+				if(element.getText().contains(expectedElement))
+				{	
+					
+					element.click();
+					logger.info("Clicked an Element from the list : " + element);
+					ExtentLogger.pass("Clicked an Element from the list : "+ element);
+					break;
+				}
+				
+				
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException("Unable to select the element from the list : " + expectedElement);
+		}
+		
+	
+	}
 	
 	
+	public boolean compareText(String actual , String expected)
+	{
+		try {
+			logger.info("Comparing the text value of : " + expected + " with " + actual);
+			ExtentLogger.setInfo("Comparing the text value of : " + expected + " with " + actual);
+			if(actual.equalsIgnoreCase(expected))
+			{
+				logger.info("Expected value matches with the actual value");
+				ExtentLogger.pass("Expected value matches with the actual value");
+				return true;
+			}
+			
+			else
+			{
+				logger.info("Expected value matches with the actual value");
+
+				ExtentLogger.fail("Expected value does not matches with the actual value");
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("Unable to compare the expected value with the actual value");
+
+			ExtentLogger.fail("Unable to compare the expected value with the actual value");
+			 throw new RuntimeException("Comparison failed : ", e);
+		}
+		
+	}
 	
 	
 	private WebElement waitForElementVisible(By locator)
@@ -98,6 +164,11 @@ public class ActionUtilities {
 	{
 		
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
+	
+	public List<WebElement> waitForElements(By locator) {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
 	}
 	
 	

@@ -24,11 +24,11 @@ public class RegistrationPage {
 	By regBtnby = By.xpath("//button[text() = 'Register']");
 	
 	
-	public RegistrationPage(WebDriver driver)
+	public RegistrationPage(WebDriver driver , ActionUtilities actUtil)
 	{
 		this.driver = driver;
 	       
-        actUtil = new ActionUtilities(driver);
+        this.actUtil  = actUtil ;
 	}
 	
 	
@@ -51,12 +51,17 @@ public class RegistrationPage {
 		actUtil.setText(companyby, company);
 		actUtil.setText(pwdby, pwd);
 		actUtil.setText(cnfPwdby, pwd);
+		
 	}
+	
+	
 	
 	public void clickRegister()
 	{
 		actUtil.click(regBtnby);
 	}
+	
+	
 	
 	
 	

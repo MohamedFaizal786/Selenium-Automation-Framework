@@ -7,9 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import BaseTest.BaseClass;
+import BaseTest.DriverManager;
 import DataProviders.DataProviderClass;
 import PageObjects.HomePage;
 import PageObjects.RegistrationPage;
+import Utilities.ExtentLogger;
 
 public class RegisterTest extends BaseClass {
 	
@@ -20,28 +22,28 @@ public class RegisterTest extends BaseClass {
 	public void verifyRegistration(String gender , String fisrtName , String lastName , String email , String company , String password) throws InterruptedException
 	{
 		//System.out.println("Logged in successfullly");
-		HomePage homepage = new HomePage(driver);
+		HomePage homepage = new HomePage(DriverManager.getDriver(), actUtil);
 		Thread.sleep(5000);
 		homepage.clickRegBtn();
 		Thread.sleep(5000);
-		RegistrationPage registerationpage = new RegistrationPage(driver);
-		logger.info("Entering the user details");
+		RegistrationPage registerationpage = new RegistrationPage(DriverManager.getDriver()  , actUtil);
 		registerationpage.setRegistrationDetails(gender, fisrtName, lastName, email, company, password);
-		logger.info("Clicking register");
 		registerationpage.clickRegister();
 		
-		String expectedMsg = driver.findElement(By.xpath("//div[text()='Your registration completed']")).getText();
+		String expectedMsg = DriverManager.getDriver().findElement(By.xpath("//div[text()='Your registration completed']")).getText();
 		
 		logger.info("Validating the registeration message");
-		if(expectedMsg.equals(actualMsg))
+		if(homepage.isAccountRegistered(expectedMsg, homepage.getRegisteredMsgText()))
 		{
-			logger.info("Account registered successfull with : " + email + " and " + password );
-			
+			logger.info("Account registered successfully with : " + email + " and " + password );
+			ExtentLogger.pass("Account registered successfully with : " + email + " and " + password );
 		}
 		
 		else
 		{
-			logger.info("Account registered unsuccessfull with : " + email + " and " + password );
+			logger.info("Account registration unsuccessfull with : " + email + " and " + password );
+			ExtentLogger.fail("Account registration  unsuccessfull with : " + email + " and " + password );
+
 			Assert.fail();
 		}
 		

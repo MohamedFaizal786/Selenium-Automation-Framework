@@ -35,32 +35,41 @@ public class LoginPage {
 	
 	
 	
-	public LoginPage(WebDriver driver) {
+	public LoginPage(WebDriver driver , ActionUtilities actUtil ) {
         this.driver = driver;
-        actUtil  = new ActionUtilities(driver);
+        this.actUtil  = actUtil;
     }
 	
-	
-	public void setEmail(String email)
+	public void login(String email , String password)
 	{
-		//emailTxt.sendKeys(email);
 		actUtil.setText(emailTxtby, email);
-		
-	}
-	
-	
-	public void setPassword(String password)
-	{
-		//passwordTxt.sendKeys(password);
 		actUtil.setText(passwordTxtby, password);
+		actUtil.click(loginBtnby);
 	}
 	
-	public void clickLogin()
-	{
-		//loginBtn.click();
-		actUtil.click(loginBtnby);
-		
-	}
+	
+	
+	
+//	public void setEmail(String email)
+//	{
+//		//emailTxt.sendKeys(email);
+//		actUtil.setText(emailTxtby, email);
+//		
+//	}
+//	
+//	
+//	public void setPassword(String password)
+//	{
+//		//passwordTxt.sendKeys(password);
+//		actUtil.setText(passwordTxtby, password);
+//	}
+//	
+//	public void clickLogin()
+//	{
+//		//loginBtn.click();
+//		actUtil.click(loginBtnby);
+//		
+//	}
 	
 	
 	

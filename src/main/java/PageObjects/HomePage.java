@@ -19,25 +19,27 @@ public class HomePage {
 	By registbtnby = By.linkText("Register");
 	By loginbtnby = By.linkText("Log in");
 	By logoutbtnby = By.xpath("//div[@class='header-links']/ul/li[2]/a");
+	By regMsgby = By.xpath("//div[text()='Your registration completed']");
 	
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	public HomePage(WebDriver driver) {
-		
-		this.driver = driver;
-       
-        actUtil = new ActionUtilities(driver);
-    }
 	
 
 	
+	public HomePage(WebDriver driver, ActionUtilities actUtil) {
+		// TODO Auto-generated constructor stub
+		
+		this.driver = driver;
+	       
+        this.actUtil = actUtil;
+	}
+	
+
+
+
 	public void clickLoginBtn()
 	{
 		
@@ -64,11 +66,35 @@ public class HomePage {
 		return actUtil.getText(logoutbtnby);
 	}
 	
+	public String getRegisteredMsgText() {
+		// TODO Auto-generated method stub
+		return actUtil.getText(regMsgby);
+		
+	}
+	
 	public void clickLogoutnBtn()
 	{
 		actUtil.click(logoutbtnby);
 	}
+	
+	
+	
+	public boolean isAccountLoggedIn(String actual ,String expected ) {
+		return actUtil.compareText(actual, expected);
+		
+	}
+	
+	public boolean isAccountRegistered(String actual ,String expected ) {
+		return actUtil.compareText(actual, expected);
+		
+	}
 
+
+
+
+	
+	
+	
 
 
 	

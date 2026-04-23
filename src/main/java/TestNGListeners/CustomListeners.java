@@ -10,6 +10,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import BaseTest.BaseClass;
+import BaseTest.DriverManager;
 import Utilities.ExtentLogger;
 import Utilities.ExtentReportManager;
 import Utilities.ScreenshotsUtilities;
@@ -31,8 +32,7 @@ public class CustomListeners implements ITestListener {
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		// TODO Auto-generated method stub
-		//System.out.println("Test case Passed" + result.getMethod().getMethodName());
+		
 		
 		ExtentLogger.pass("Test case passed :" + result.getName());
 	}
@@ -42,7 +42,7 @@ public class CustomListeners implements ITestListener {
 		// TODO Auto-generated method stub
 		ExtentLogger.fail("Test case failed :" + result.getName());
 		try {
-			String snapshotPath = ScreenshotsUtilities.getScreenshot(BaseClass.driver, result.getName());
+			String snapshotPath = ScreenshotsUtilities.getScreenshot(DriverManager.getDriver(), result.getName());
 			ExtentLogger.getTest().addScreenCaptureFromPath(snapshotPath);
 			
 			
