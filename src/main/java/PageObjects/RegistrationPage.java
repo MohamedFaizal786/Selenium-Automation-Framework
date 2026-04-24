@@ -5,13 +5,16 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import BaseTest.BaseClass;
 import Utilities.ActionUtilities;
 
 public class RegistrationPage {
 	
+	public static Logger logger = LogManager.getLogger(RegistrationPage.class);
+	
 	public WebDriver driver;
 	public ActionUtilities actUtil;
-	private static Logger logger = LogManager.getLogger(HomePage.class);
+	
 	
 	By maleGenderby = By.xpath("//input[@id ='gender-male']");
 	By femaleGenderby = By.xpath("//input[@id ='gender-female']");

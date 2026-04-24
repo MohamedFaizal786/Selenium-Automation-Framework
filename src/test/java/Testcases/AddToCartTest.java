@@ -23,7 +23,7 @@ import Utilities.ExtentLogger;
 import Utilities.ScreenshotsUtilities;
 public class AddToCartTest extends BaseClass {
 	
-	private static Logger logger = LogManager.getLogger(LoginTest.class);
+	private static Logger logger = LogManager.getLogger(AddToCartTest.class);
 	
 	
 	@Test

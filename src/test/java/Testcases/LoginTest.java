@@ -22,8 +22,8 @@ public class LoginTest extends BaseClass {
 	
 	private static Logger logger = LogManager.getLogger(LoginTest.class);
 
-	@Test(dataProvider = "loginData" , dataProviderClass  = DataProviderClass.class)
-	public void verifyLogin(String TestCaseId , String username , String password) throws InterruptedException, IOException
+	@Test(dataProvider = "validLoginData" , dataProviderClass  = DataProviderClass.class)
+	public void verifyValidLogin(String TestCaseId , String username , String password) throws InterruptedException, IOException
 	{
 		
 		
@@ -51,16 +51,35 @@ public class LoginTest extends BaseClass {
 			Assert.fail();
 			
 		
-		}
-		
-		
-		
-		
-		
-		
-	
-		
+		}	
 		
 	}
 
+	@Test(dataProvider = "invalidLoginData" , dataProviderClass  = DataProviderClass.class)
+	public void verifyInvalidLoginTest(String TestCaseId , String username , String password) throws InterruptedException
+	{
+		logger.info("Test started : " + TestCaseId );
+		HomePage homepage = new HomePage(DriverManager.getDriver() ,actUtil);
+		LoginPage loginpage = new LoginPage(DriverManager.getDriver() , actUtil);
+		Thread.sleep(5000);
+		homepage.clickLoginBtn();
+		logger.info("Clicked on Login button");
+		
+		Thread.sleep(15000);
+		loginpage.login(username, password);
+		if(loginpage.verifyErrorMsg("Login was unsuccessful. Please correct the errors and try again."))
+		{
+			logger.info("Account is not logged for the username : " + username + " and password : " + password);
+			ExtentLogger.pass("Account is not logged for the username : " + username + " and password : " + password );
+		}
+		
+		else
+		{
+			logger.error("Invalid Login test failed for the username : " + username + " and password : " + password);
+			ExtentLogger.fail("Invalid Login test failed for the username : " + username + " and password : " + password);
+			Assert.fail();
+		}
+		
+		
+	}
 }

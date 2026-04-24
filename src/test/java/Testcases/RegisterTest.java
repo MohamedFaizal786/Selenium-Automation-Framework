@@ -15,13 +15,13 @@ import Utilities.ExtentLogger;
 
 public class RegisterTest extends BaseClass {
 	
-	private static Logger logger = LogManager.getLogger(RegisterTest.class);
+	public static Logger logger = LogManager.getLogger(RegisterTest.class);
 	String actualMsg = "Your registration completed";
 	
 	@Test(dataProvider = "RegistrationData" , dataProviderClass = DataProviderClass.class)
 	public void verifyRegistration(String gender , String fisrtName , String lastName , String email , String company , String password) throws InterruptedException
 	{
-		//System.out.println("Logged in successfullly");
+		
 		HomePage homepage = new HomePage(DriverManager.getDriver(), actUtil);
 		Thread.sleep(5000);
 		homepage.clickRegBtn();

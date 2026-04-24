@@ -5,11 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import BaseTest.BaseClass;
 import Utilities.ActionUtilities;
 
 public class CartPage {
 	
-	private static Logger logger = LogManager.getLogger(HomePage.class);
+	public static Logger logger = LogManager.getLogger(CartPage.class);
 	public  WebDriver driver;
 	ActionUtilities actUtil;
 	

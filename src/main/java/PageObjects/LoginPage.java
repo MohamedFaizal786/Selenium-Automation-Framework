@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import BaseTest.BaseClass;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +17,7 @@ import Utilities.ActionUtilities;
 
 public class LoginPage {
 	
-	private static Logger logger = LogManager.getLogger(LoginPage.class);
+	public static Logger logger = LogManager.getLogger(LoginPage.class);
 	public  WebDriver driver;
 	ActionUtilities actUtil;
 
@@ -22,6 +25,7 @@ public class LoginPage {
 	By emailTxtby = By.xpath("//input[@class='email']");
 	By passwordTxtby = By.xpath("//input[@class='password']");
 	By loginBtnby = By.xpath("//button[text()='Log in']");
+	By erroMsgby = By.xpath("//div[contains(@class , 'message-error validation')]");
 	
 //	@FindBy(xpath = "//input[@class='email']")
 //	WebElement emailTxt;
@@ -48,28 +52,24 @@ public class LoginPage {
 	}
 	
 	
+	public boolean verifyErrorMsg(String expectedMsg)
+	{
+		if (actUtil.getText(erroMsgby).contains (expectedMsg))
+		{	
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+				
+	}
 	
 	
-//	public void setEmail(String email)
-//	{
-//		//emailTxt.sendKeys(email);
-//		actUtil.setText(emailTxtby, email);
-//		
-//	}
-//	
-//	
-//	public void setPassword(String password)
-//	{
-//		//passwordTxt.sendKeys(password);
-//		actUtil.setText(passwordTxtby, password);
-//	}
-//	
-//	public void clickLogin()
-//	{
-//		//loginBtn.click();
-//		actUtil.click(loginBtnby);
-//		
-//	}
+	
+
 	
 	
 	

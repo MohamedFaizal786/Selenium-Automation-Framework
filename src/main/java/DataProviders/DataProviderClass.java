@@ -11,10 +11,16 @@ import Utilities.ExcelUtilities;
 
 public class DataProviderClass {
 	
-	@DataProvider(name ="loginData")
-	public Object[][] returnDataFromExcel() throws IOException 
+	@DataProvider(name ="validLoginData")
+	public Object[][] returnValidLoginDataFromExcel() throws IOException 
 	{
 		return ExcelUtilities.getData("Valid LoginTest");
+	}
+	
+	@DataProvider(name ="invalidLoginData")
+	public Object[][] returnInvalidLoginDataFromExcel() throws IOException 
+	{
+		return ExcelUtilities.getData("Invalid LoginTest");
 	}
 	
 	
